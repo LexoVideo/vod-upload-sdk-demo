@@ -1,0 +1,70 @@
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+
+<body>
+<input id="file-selector" type="file">
+<script src="https://libs.lexo.video/js/put-video-sdk.min.js"></script>
+<script>
+var task_id;
+
+const pv = new PV({
+    getAuthorization: function (options, callback) {
+        const url = '/get_sts?key={key}'; //KEY 
+        const xhr = new XMLHttpRequest();
+        let data = null;
+        let credentials = null;
+        xhr.open('GET', url, true);
+        xhr.onload = function (e) {
+            try {
+               data = JSON.parse(e.target.responseText);
+               credentials = data.credentials;
+            } catch (e) {
+            }
+            if (!data || !credentials) {
+              return console.error('credentials invalid:\n' + JSON.stringify(data, null, 2))
+            };
+            console.log('uploading', JSON.stringify(options));
+            console.log(credentials);
+            callback({
+              TmpSecretId: credentials.tmpSecretId,
+              TmpSecretKey: credentials.tmpSecretKey,
+              SecurityToken: credentials.sessionToken,
+              StartTime: data.startTime, 
+              ExpiredTime: data.expiredTime, 
+          });
+
+        };
+        xhr.send();
+    }
+});
+
+document.getElementById('file-selector').onchange = function () {
+
+	    var body = this.files[0];
+	        if (!body) return;
+
+pv.uploadFile({
+        file_id: "ddd-f3ew2fwe-fewqcew-cewcwe",
+        os_id: "os_id",
+		task_type: "A",
+        Body: body,
+        SliceSize: 1024 * 1024 * 4, 
+        onTaskReady: function (tid) {
+          task_id = tid;
+        },
+        onProgress: function (progressData) {
+            console.log('uploading', JSON.stringify(progressData));
+        },
+        onFileFinish :function(progressData){
+		console.log('succeed', JSON.stringify(progressData));
+	}
+    }, function (err, data) {
+        console.log(err, data);
+    });
+}
+
+</script>
+</body>
+</html>

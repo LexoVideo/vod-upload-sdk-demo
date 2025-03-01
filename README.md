@@ -1,11 +1,11 @@
-vod-upload-sdk-demo
+# vod-upload-sdk-demo
 
-1) Include JS, https://libs.lexo.video/js/put-video-sdk.min.js
+## 1) Include JS, https://libs.lexo.video/js/put-video-sdk.min.js
 ```html
 <script src="https://libs.lexo.video/js/put-video-sdk.min.js"></script>
 ```
 
-2) Initialize PV
+## 2) Initialize PV
 ```js
 const pv = new PV({
     getAuthorization: function (options, callback) {

@@ -40,7 +40,7 @@ const pv = new PV({
 });
 ```
 
-Call the pv's uploadFile method
+## 3) Call the pv's uploadFile method
 ```js
 // Listen for the selected file
 document.getElementById('file-selector').onchange = function () {

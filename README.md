@@ -51,7 +51,7 @@ const pv = new PV({
 });
 ```
 
-## 3) Call the pv's uploadFile method and  pushed to the account's material library
+## 3) Use the `uploadFile` method of the PV to push the file to the account's material library.
 
 ```js
 // Listen for the selected file
